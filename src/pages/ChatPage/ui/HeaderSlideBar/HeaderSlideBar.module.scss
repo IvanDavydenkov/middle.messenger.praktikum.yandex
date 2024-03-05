@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 21px 0 14px;
+
+  .link {
+    align-self: flex-end;
+    text-decoration: none;
+
+    font-size: 12px;
+    line-height: 12px;
+    color: #999999;
+
+    display: flex;
+    gap: 4px;
+
+    svg {
+      margin-top: 2px;
+    }
+  }
+
+  .input {
+    padding: 10px;
+    border-radius: 5px;
+
+    background: #EFEFEF;
+    border: none;
+  }
+}
