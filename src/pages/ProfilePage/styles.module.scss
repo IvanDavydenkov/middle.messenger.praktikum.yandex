@@ -1,0 +1,52 @@
+.section {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+
+  .sidebar {
+    width: 64px;
+    background: #FBFBFB;
+    border-right: 1px solid #EAEAEA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  .container {
+    padding-top: 5%;
+
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 510px;
+      gap: 81px;
+
+      .inputWrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .img {
+        width: 130px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      button {
+        max-width: 280px;
+      }
+    }
+  }
+}

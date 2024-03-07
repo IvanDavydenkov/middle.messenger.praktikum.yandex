@@ -1,7 +1,7 @@
 //language=hbs
 import cl from './Dialog.module.scss'
 import {MenuIcon} from '../../assets/MenuIcon.ts'
-import {ArrowSendMessage} from '../../assets/ArrowSendMessage.ts'
+import {ArrowSendMessage} from '../../../../shared/icons/ArrowSendMessage.ts'
 import {AttachIcon} from '../../assets/AttachIcon.ts'
 
 export const Dialog = `
