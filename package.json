@@ -25,11 +25,14 @@
     "sass": "^1.71.1",
     "typescript": "^5.2.2",
     "vite": "^5.1.4",
-    "vite-tsconfig-paths": "^4.3.1"
+    "vite-tsconfig-paths": "^4.3.1",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.2.5"
   },
   "dependencies": {
-    "eslint-config-prettier": "^9.1.0",
-    "express": "^4.18.3",
-    "prettier": "^3.2.5"
+    "express": "^4.18.3"
+  },
+  "engines": {
+    "node": ">=21.0.0"
   }
 }
