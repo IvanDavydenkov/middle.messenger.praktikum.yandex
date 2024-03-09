@@ -1,8 +1,8 @@
 //language=hbs
 import cl from './styles.module.scss'
-import {ProfileInput} from './ui/ProfileInput.ts'
-import Handlebars from "handlebars";
-import {ArrowSendMessage} from '@/shared/icons/ArrowSendMessage.ts'
+import { ProfileInput } from './ui/ProfileInput.ts'
+import Handlebars from 'handlebars'
+import { ArrowSendMessage } from '@/shared/icons/ArrowSendMessage.ts'
 
 Handlebars.registerPartial('ProfileInput', ProfileInput)
 Handlebars.registerPartial('ArrowSendMessage', ArrowSendMessage)

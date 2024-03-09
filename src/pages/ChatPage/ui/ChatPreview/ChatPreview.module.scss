@@ -10,7 +10,7 @@
     &::before {
       content: '';
       position: absolute;
-      background-color: #E4EDFD;
+      background-color: #e4edfd;
       opacity: 0.3;
       top: 0;
       left: 0;
@@ -21,7 +21,6 @@
 
   &:last-child {
     border-bottom: 1px solid #eaeaea;
-
   }
 
   .img {
@@ -31,18 +30,15 @@
     max-width: 47px;
     max-height: 47px;
     object-fit: fill;
-
-
   }
 
   .noavatar {
-    background-color: #EFEFEF;
+    background-color: #efefef;
     border-radius: 50%;
     min-width: 47px;
     min-height: 47px;
     max-width: 47px;
     max-height: 47px;
-
   }
 
   .chatInfo {
@@ -53,7 +49,7 @@
     .title {
       margin: 0;
 
-      color: #1E1E1E;
+      color: #1e1e1e;
       font-size: 13px;
       font-weight: 600;
       line-height: 13px;
@@ -90,14 +86,14 @@
       right: 0;
       bottom: 12px;
 
-      color: #FFFFFF;
+      color: #ffffff;
       font-size: 11px;
       line-height: 12px;
       min-height: 20px;
       min-width: 20px;
       max-width: 20px;
       max-height: 20px;
-      background-color: #3369F3;
+      background-color: #3369f3;
       border-radius: 50%;
 
       display: flex;

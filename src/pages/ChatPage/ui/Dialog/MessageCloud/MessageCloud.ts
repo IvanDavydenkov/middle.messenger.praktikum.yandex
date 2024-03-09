@@ -1,7 +1,6 @@
 //language=hbs
 import cl from './MessageCloud.module.scss'
 
-
 export const MessageCloud = `
     <div class='{{className}}'>
         <div class=${cl.wrapper}>
@@ -10,4 +9,3 @@ export const MessageCloud = `
         </div>
     </div>
 `
-

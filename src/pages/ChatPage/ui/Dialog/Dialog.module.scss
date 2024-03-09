@@ -8,7 +8,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 10px 10px 0;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid #eaeaea;
 
     .wrapper {
       display: flex;
@@ -21,7 +21,7 @@
       }
 
       .name {
-        color: #1E1E1E;
+        color: #1e1e1e;
         font-size: 13px;
         line-height: 13px;
       }
@@ -32,8 +32,6 @@
       background-color: transparent;
       border: none;
     }
-
-
   }
 
   .body {
@@ -47,24 +45,21 @@
     gap: 10px;
     height: 100%;
     justify-items: flex-end;
-
   }
-
 
   .footer {
     margin-top: auto;
     padding: 10px 0;
-    border-top: 1px solid #EAEAEA;
+    border-top: 1px solid #eaeaea;
     display: flex;
     align-items: center;
     gap: 10px;
-
 
     .input {
       width: 100%;
       border-radius: 30px;
 
-      background: #EFEFEF;
+      background: #efefef;
       border: none;
       padding: 10px 20px;
     }

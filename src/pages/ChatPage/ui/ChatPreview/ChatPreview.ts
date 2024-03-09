@@ -1,7 +1,6 @@
 //language=hbs
 import cl from './ChatPreview.module.scss'
 
-
 export const ChatPreview = `
     <div class=${cl.chat}>
         {{#if avatar}}

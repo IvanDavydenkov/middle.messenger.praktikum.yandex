@@ -1,7 +1,7 @@
 //language=hbs
 import cl from './HeaderSlideBar.module.scss'
 // import {SearchIcon} from '../assets/SearchIcon.ts'
-import {ArrowIcon} from '../../assets/ArrowIcon.ts'
+import { ArrowIcon } from '../../assets/ArrowIcon.ts'
 
 export const HeaderSlideBar = `
     <header class=${cl.header}>

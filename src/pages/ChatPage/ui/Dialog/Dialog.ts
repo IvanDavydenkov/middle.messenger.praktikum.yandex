@@ -1,12 +1,12 @@
 //language=hbs
 import cl from './Dialog.module.scss'
-import Handlebars from "handlebars";
-import {MenuIcon} from '../../assets/MenuIcon.ts'
-import {ArrowSendMessage} from '@/shared/icons/ArrowSendMessage.ts'
-import {AttachIcon} from '../../assets/AttachIcon.ts'
-import {MessageCloud} from './MessageCloud/MessageCloud.ts'
+import Handlebars from 'handlebars'
+import { MenuIcon } from '../../assets/MenuIcon.ts'
+import { ArrowSendMessage } from '@/shared/icons/ArrowSendMessage.ts'
+import { AttachIcon } from '../../assets/AttachIcon.ts'
+import { MessageCloud } from './MessageCloud/MessageCloud.ts'
 
-Handlebars.registerPartial('MessageCloud', MessageCloud,)
+Handlebars.registerPartial('MessageCloud', MessageCloud)
 export const Dialog = `
     <div class=${cl.section}>
         <div class=${cl.header}>
