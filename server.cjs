@@ -7,7 +7,6 @@ const PORT = 3000
 app.use(express.static('./dist'))
 app.get('/', (req, res) => {
     res.status(200)
-    res.send('Hello World!');
 });
 // Добавил чтобы работал кастомный роутер
 app.get('*', (req, res) => {
