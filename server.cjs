@@ -1,12 +1,17 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+const express = require('express')
+const {join} = require('path')
 
-app.get('/', (req, res) => {
-    res.status(200)
-    res.send('Hello World!');
-});
+const app = express()
+const PORT = 3000
 
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
-});
+
+// Добавил чтобы работал кастомный роутер
+app.get('*', (req, res) => {
+    res.status(200).sendFile(join(__dirname, 'dist', 'index.html'))
+})
+
+app.use(express.static('./dist'))
+
+app.listen(PORT, function () {
+    console.log(`Server started on port ${PORT}!`)
+})
