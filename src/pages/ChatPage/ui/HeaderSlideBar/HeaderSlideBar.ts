@@ -5,6 +5,6 @@ import {ArrowIcon} from '../../assets/ArrowIcon.ts'
 
 export const HeaderSlideBar = `
     <header class=${cl.header}>
-        <a class=${cl.link} href="/public">Профиль${ArrowIcon}</a>
+        <a class=${cl.link} href="/profile">Профиль${ArrowIcon}</a>
         <input class=${cl.input} placeholder='Поиск'/>
     </header>`

@@ -11,8 +11,12 @@ export const SignInPage = `
                     {{>Input type='password' label='Пароль' value='Ivan' name='password'}}
                 </div>
                 <div class=${cl.btnWrapper}>
-                    {{>Button label='Авторизоваться'}}
-                    {{>ButtonLink label='Нет аккаунта?'}}
+                    <a href='/signin'>
+                        {{>Button label='Авторизоваться' name='Sign in'}}
+                    </a>
+                    <a href='/signup'>
+                        {{>ButtonLink label='Нет аккаунта?' name='Sign up'}}
+                    </a>
                 </div>
             </form>
 

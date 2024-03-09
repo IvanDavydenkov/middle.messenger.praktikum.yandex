@@ -8,7 +8,11 @@ Handlebars.registerPartial('ProfileInput', ProfileInput)
 Handlebars.registerPartial('ArrowSendMessage', ArrowSendMessage)
 export const ProfilePage = `
     <section class=${cl.section}>
-        <div class=${cl.sidebar}>{{>ArrowSendMessage}}</div>
+        <div class=${cl.sidebar}>
+        <a href="/chat">
+        {{>ArrowSendMessage}}
+        </a>
+        </div>
         <div class=${cl.container}>
          <form class=${cl.form}>
             <img class=${cl.img} src="{{avatar}}"/>
