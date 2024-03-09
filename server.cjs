@@ -7,7 +7,7 @@ const PORT = 3000
 
 // Добавил чтобы работал кастомный роутер
 app.get('*', (req, res) => {
-    res.sendFile(join(__dirname, 'dist', 'index.html'))
+    // res.sendFile(join(__dirname, 'dist', 'index.html'))
     res.status(200);
 })
 
