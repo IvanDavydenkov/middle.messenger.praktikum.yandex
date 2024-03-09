@@ -8,8 +8,8 @@ app.use(express.static('./dist'))
 
 // Добавил чтобы работал кастомный роутер
 app.get('*', (req, res) => {
-    res.status(200)
     res.sendFile(join(__dirname, 'dist', 'index.html'))
+    res.status(200)
 })
 app.listen(PORT, function () {
     console.log(`Server started on port ${PORT}!`)
