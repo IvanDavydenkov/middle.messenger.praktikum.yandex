@@ -2,7 +2,8 @@ import Handlebars from 'handlebars'
 import * as Components from './shared/ui'
 import * as Pages from './pages'
 
-const pages = {
+type Pages = Record<string, string>
+const pages: Pages = {
   chat: Pages.ChatPage,
   signin: Pages.SignInPage,
   signup: Pages.SignUpPage,
@@ -15,11 +16,11 @@ Object.entries(Components).forEach(([name, component]) => {
   Handlebars.registerPartial(name, component)
 })
 
-const currentPage = (pages: any): HandlebarsTemplatable => {
+const currentPage = (pages: Pages) => {
   const url = window.location
   const currentPath = url.pathname.slice(1)
   console.log('Current path:', currentPath) // Отладочное сообщение
-  if (pages.hasOwnProperty(currentPath)) {
+  if (pages[currentPath]) {
     return pages[currentPath]
   }
   console.log('Page not found') // Отладочное сообщение
