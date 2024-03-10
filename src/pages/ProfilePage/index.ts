@@ -7,7 +7,7 @@ import { ArrowSendMessage } from '@/shared/icons/ArrowSendMessage.ts'
 Handlebars.registerPartial('ProfileInput', ProfileInput)
 Handlebars.registerPartial('ArrowSendMessage', ArrowSendMessage)
 export const ProfilePage = `
-    <section class=${cl.section}>
+    <main class=${cl.section}>
     {{> NavBar}}
         <div class=${cl.sidebar}>
         <a href="/chat">
@@ -31,4 +31,4 @@ export const ProfilePage = `
         </form>
         </div>
        
-    </section>`
+    </main>`

@@ -2,7 +2,7 @@
 import cl from './styles.module.scss'
 
 export const SignInPage = `
-    <section class=${cl.main}>
+    <main class=${cl.main}>
         {{> NavBar }}
         <section class=${cl.section}>
             <h1 class=${cl.title}>Вход</h1>
@@ -22,4 +22,4 @@ export const SignInPage = `
             </form>
 
         </section>
-    </section>`
+    </main>`
