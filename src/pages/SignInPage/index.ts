@@ -3,6 +3,7 @@ import cl from './styles.module.scss'
 
 export const SignInPage = `
     <section class=${cl.main}>
+        {{> NavBar }}
         <section class=${cl.section}>
             <h1 class=${cl.title}>Вход</h1>
             <form class=${cl.form}>

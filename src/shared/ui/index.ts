@@ -1,3 +1,3 @@
-export { Button } from './Button/Buttton.tmpl.ts'
-export { ButtonLink } from './ButtonLink/ButtonLink.tmpl.ts'
-export { Input } from './Input/Input.tmpl.ts'
+export { Button } from './Button/Buttton.ts'
+export { ButtonLink } from './ButtonLink/ButtonLink.ts'
+export { Input } from './Input/Input.ts'
