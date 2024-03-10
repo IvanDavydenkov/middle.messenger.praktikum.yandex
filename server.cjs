@@ -6,9 +6,7 @@ const PORT = process.env.PORT || 3000
 
 app.use(express.static('./dist'))
 app.get('/', (req, res) => {
-    res.status(200)
-    res.sendFile(join(__dirname, "dist", "index.html"));
-
+    res.status(200).sendFile(join(__dirname, "dist", "index.html"))
 })
 
 
