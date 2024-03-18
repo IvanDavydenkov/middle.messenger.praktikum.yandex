@@ -1,0 +1,38 @@
+//@import '../../assets/variables';
+//
+//.chat-page {
+//  height: 100%;
+//  width: 100%;
+//  display: grid;
+//
+//  &__list {
+//    border-right: 1px solid $divider-line-color;
+//  }
+//}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+
+  background: rgb(51, 105, 243);
+  border: none;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+  span {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: center;
+  }
+}
