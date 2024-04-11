@@ -31,8 +31,6 @@ export class Block {
     eventBus.emit(Block.EVENTS.INIT)
   }
 
-  _element: HTMLElement
-
   get element(): HTMLElement {
     return this._element
   }
