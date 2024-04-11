@@ -1,40 +1,37 @@
-type EventCallback = (...args: unknown[]) => void
-
-interface Listeners {
-  [event: string]: EventCallback[]
-}
-
 export class EventBus {
-  private listeners: Listeners
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  listeners: Record<string, Function[]>
 
   constructor() {
     this.listeners = {}
   }
 
-  on(event: string, callback: EventCallback): void {
+  on<T extends unknown[]>(event: string, callback: (...args: T) => void): void {
     if (!this.listeners[event]) {
       this.listeners[event] = []
     }
-
     this.listeners[event].push(callback)
   }
 
-  off(event: string, callback: EventCallback): void {
+  off<T extends unknown[]>(
+    event: string,
+    callback: (...args: T) => void
+  ): void {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`)
     }
 
     this.listeners[event] = this.listeners[event].filter(
-      (listener) => listener !== callback
+      (listener: any) => listener !== callback
     )
   }
 
-  emit(event: string, ...args: never[]): void {
+  emit<T extends unknown[]>(event: string, ...args: T): void {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`)
     }
-
-    this.listeners[event].forEach((listener) => {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    this.listeners[event].forEach((listener: Function): void => {
       listener(...args)
     })
   }

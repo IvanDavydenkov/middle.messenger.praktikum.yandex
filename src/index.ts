@@ -1,6 +1,5 @@
-import Handlebars from 'handlebars'
-import * as Components from './shared/ui'
 import * as Pages from './pages'
+import { Block } from '@/shared/lib/classes/Block.ts'
 
 export interface Page {
   [key: string]: string[]
@@ -15,24 +14,30 @@ const pages: Page = {
   '500': [Pages.ServerErrorPage],
 }
 
-Object.entries(Components).forEach(([name, component]) => {
-  Handlebars.registerPartial(name, component)
-})
+// Object.entries(Components).forEach(([name, component]) => {
+//   Handlebars.registerPartial(name, component)
+// })
+//
+// function navigate(page: string) {
+//   const [source, args] = pages[page]
+//   const handlebarsFunc = Handlebars.compile(source)
+//   document.body.innerHTML = handlebarsFunc(args)
+// }
+//
+// document.addEventListener('click', (e: Event) => {
+//   const page = (e.target as HTMLElement).getAttribute('page')
+//   if (page) {
+//     navigate(page)
+//
+//     e.preventDefault()
+//     e.stopImmediatePropagation()
+//   }
+// })
+//
+// document.addEventListener('DOMContentLoaded', () => navigate('signin'))
 
-function navigate(page: string) {
-  const [source, args] = pages[page]
-  const handlebarsFunc = Handlebars.compile(source)
-  document.body.innerHTML = handlebarsFunc(args)
-}
-
-document.addEventListener('click', (e: Event) => {
-  const page = (e.target as HTMLElement).getAttribute('page')
-  if (page) {
-    navigate(page)
-
-    e.preventDefault()
-    e.stopImmediatePropagation()
+class Button extends Block {
+  constructor() {
+    super('button', { text: 'myButton' })
   }
-})
-
-document.addEventListener('DOMContentLoaded', () => navigate('signin'))
+}
