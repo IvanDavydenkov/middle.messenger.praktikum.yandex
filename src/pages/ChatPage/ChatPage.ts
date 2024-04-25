@@ -5,9 +5,9 @@ import { HeaderSlideBar } from './ui/HeaderSlideBar/HeaderSlideBar.ts'
 import { ChatList } from './ui/ChatList/ChatList.ts'
 import { ChatPreview } from './ui/ChatPreview/ChatPreview.ts'
 import { Dialog } from '@/pages/ChatPage/ui/Dialog'
-import { NavBar } from '@/shared/NavBar/NavBar.ts'
+import { Index } from '@/shared/NavBar'
 
-Handlebars.registerPartial('NavBar', NavBar)
+Handlebars.registerPartial('NavBar', Index)
 Handlebars.registerPartial('ChatList', ChatList)
 Handlebars.registerPartial('ChatPreview', ChatPreview)
 Handlebars.registerPartial('HeaderSlideBar', HeaderSlideBar)

@@ -1,7 +1,10 @@
 //language=hbs
 import cl from './styles.module.scss'
+import { Block } from '@/entities/Block.ts'
+import { NavBar } from '@/shared/NavBar'
+import { SignUp } from '@/pages/SignUpPage/FormSignup'
 
-export const SignUpPage = `
+export const SignUpPage1 = `
     <section class=${cl.main}>
         {{> NavBar}}
         <section class=${cl.section}>
@@ -23,3 +26,21 @@ export const SignUpPage = `
             </form>
         </section>
     </section>`
+
+export class SignUpPage extends Block {
+  constructor(props) {
+    super({
+      ...props,
+      NavBar: new NavBar({}),
+      Form: new SignUp({ title: 'Регистрация' }),
+    })
+  }
+
+  render() {
+    return `
+    <main class=${cl.main}>
+        {{{ NavBar }}}
+        {{{ Form }}}
+    </main>`
+  }
+}
