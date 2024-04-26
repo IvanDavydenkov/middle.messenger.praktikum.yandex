@@ -13,10 +13,7 @@ module.exports = {
       parserOptions: {
         sourceType: 'script',
       },
-      rules: {
-        'no-unused-vars': 'off', // Отключаем правило no-unused-vars только для TypeScript файлов
-        '@typescript-eslint/no-unused-vars': 'off', // Отключаем аналогичное правило для TypeScript
-      },
+      rules: {},
     },
   ],
   parser: '@typescript-eslint/parser',
