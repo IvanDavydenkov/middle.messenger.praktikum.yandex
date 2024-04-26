@@ -3,10 +3,11 @@ import cl from './styles.module.scss'
 import { ProfileInput } from './ui/ProfileInput.ts'
 import Handlebars from 'handlebars'
 import { ArrowSendMessage } from '@/shared/icons/ArrowSendMessage.ts'
+import { Block } from '@/entities/Block.ts'
 
 Handlebars.registerPartial('ProfileInput', ProfileInput)
 Handlebars.registerPartial('ArrowSendMessage', ArrowSendMessage)
-export const ProfilePage = `
+export const ProfilePage1 = `
     <main class=${cl.section}>
     {{> NavBar}}
         <div class=${cl.sidebar}>
@@ -32,3 +33,11 @@ export const ProfilePage = `
         </div>
        
     </main>`
+
+export class ProfilePage extends Block {
+  constructor(props) {
+    super({
+      ...props,
+    })
+  }
+}

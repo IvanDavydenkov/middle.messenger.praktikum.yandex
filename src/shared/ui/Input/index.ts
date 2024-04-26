@@ -1,13 +1,14 @@
 import { Block } from '@/entities/Block.ts'
-import cl from './Input.module.scss'
+import cl from './styles.module.scss'
+import { Input } from '@/shared/ui/Input/Input.ts'
 
-export class Input extends Block {
+export class InputElement extends Block {
   constructor(props) {
     super({
       ...props,
-      events: {
-        blur: props.onBlur,
-      },
+      Input: new Input({
+        ...props,
+      }),
     })
   }
 
@@ -15,7 +16,10 @@ export class Input extends Block {
     return `
           <label class=${cl.label}>
               <span>{{label}}</span>
-              <Input class=${cl.input} value="{{value}}" type="{{type}}" name="{{name}}">
+              {{{Input}}}
+              {{#if error}}
+              <p class=${cl.error}>{{errorText}}</p>
+              {{/if}}
           </label>
          `
   }

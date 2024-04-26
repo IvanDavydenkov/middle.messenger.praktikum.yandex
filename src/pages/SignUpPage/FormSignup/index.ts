@@ -1,6 +1,7 @@
 import { Block } from '@/entities/Block.ts'
-import { Button, ButtonLink, Input } from '@/shared/ui'
+import { Button, ButtonLink, InputElement } from '@/shared/ui'
 import cl from '@/pages/SignInPage/FormWrapper/styles.module.scss'
+import { regulars } from '@/shared/ui/Input/validator.ts'
 
 export class SignUp extends Block {
   constructor(props) {
@@ -17,25 +18,50 @@ export class SignUp extends Block {
     const onChangePhone = this.onChangePhone.bind(this)
     const onLogin = this.onLogin.bind(this)
 
-    const InputLogin = new Input({
+    const InputLogin = new InputElement({
       label: 'login',
       name: 'login',
       type: 'text',
       onBlur: onChangeLogin,
     })
 
-    const InputPassword = new Input({
+    const InputPassword = new InputElement({
       label: 'password',
       name: 'password',
       type: 'password',
       onBlur: onChangePassword,
     })
 
-    const InputEmail = new Input({
-      type:'email',
-      label:'Почта',
-      name:'email'
+    const InputEmail = new InputElement({
+      type: 'email',
+      label: 'Почта',
+      name: 'email',
       onBlur: onChangeEmail,
+    })
+    const InputPasswordRepeat = new InputElement({
+      type: 'password',
+      label: 'Повторите пароль',
+      name: 'repeatPassword',
+      onBlur: onChangePasswordRepeat,
+    })
+
+    const InputName = new InputElement({
+      type: 'text',
+      label: 'Имя',
+      name: 'name',
+      onBlur: onChangeName,
+    })
+    const InputSecondName = new InputElement({
+      type: 'text',
+      label: 'Фамилия',
+      name: 'secondName',
+      onBlur: onChangeSecondName,
+    })
+    const InputPhone = new InputElement({
+      type: 'number',
+      label: 'Телефон',
+      name: 'phone',
+      onBlur: onChangePhone,
     })
     const SignInButton = new Button({
       label: 'Регистрация',
@@ -51,15 +77,20 @@ export class SignUp extends Block {
       InputPassword,
       SignInButton,
       SignUpButton,
+      InputEmail,
+      InputPasswordRepeat,
+      InputName,
+      InputSecondName,
+      InputPhone,
     }
   }
 
   onChangeLogin(e) {
     const inputValue = e.target.value
-    if (inputValue === 'error') {
+    if (!regulars.login.regular.test(inputValue)) {
       this.children.InputLogin.setProps({
         error: true,
-        errorText: 'some error',
+        errorText: regulars.login.errorText,
       })
       return
     } else {
@@ -68,16 +99,91 @@ export class SignUp extends Block {
 
     this.setProps({ login: inputValue })
   }
-  onChangeEmail(e){
 
-    .00. ,m ,n ,m-8-
+  onChangeEmail(e) {
+    const inputValue = e.target.value
+    if (!regulars.email.regular.test(inputValue)) {
+      this.children.InputEmail.setProps({
+        error: true,
+        errorText: regulars.email.errorText,
+      })
+      return
+    } else {
+      this.children.InputEmail.setProps({ error: false, errorText: null })
+    }
+
+    this.setProps({ email: inputValue })
   }
+
+  onChangePasswordRepeat(e) {
+    const inputValue = e.target.value
+    if (inputValue !== this.props.password) {
+      this.children.InputPasswordRepeat.setProps({
+        error: true,
+        errorText: 'Пароли должны совпадать',
+      })
+      return
+    } else {
+      this.children.InputPasswordRepeat.setProps({
+        error: false,
+        errorText: null,
+      })
+    }
+
+    this.setProps({ passwordRepeat: inputValue })
+  }
+
+  onChangeName(e) {
+    const inputValue = e.target.value
+    if (!regulars.name.regular.test(inputValue)) {
+      this.children.InputName.setProps({
+        error: true,
+        errorText: regulars.name.errorText,
+      })
+      return
+    } else {
+      this.children.InputName.setProps({ error: false, errorText: null })
+    }
+
+    this.setProps({ name: inputValue })
+  }
+
+  onChangeSecondName(e) {
+    const inputValue = e.target.value
+    if (!regulars.name.regular.test(inputValue)) {
+      this.children.InputSecondName.setProps({
+        error: true,
+        errorText: regulars.name.errorText,
+      })
+      return
+    } else {
+      this.children.InputSecondName.setProps({ error: false, errorText: null })
+    }
+
+    this.setProps({ secondName: inputValue })
+  }
+
+  onChangePhone(e) {
+    const inputValue = e.target.value
+    if (!regulars.phone.regular.test(inputValue)) {
+      this.children.InputPhone.setProps({
+        error: true,
+        errorText: regulars.phone.errorText,
+      })
+      return
+    } else {
+      this.children.InputPhone.setProps({ error: false, errorText: null })
+    }
+
+    this.setProps({ phone: inputValue })
+  }
+
   onChangePassword(e) {
     const inputValue = e.target.value
-    if (inputValue === 'error') {
+    if (!regulars.password.regular.test(inputValue)) {
       this.children.InputPassword.setProps({
         error: true,
-        errorText: 'some error',
+        errorText: regulars.password.errorText,
       })
       return
     } else {
@@ -89,6 +195,7 @@ export class SignUp extends Block {
 
   onLogin(event) {
     event.preventDefault()
+    console.log(this.props)
   }
 
   render() {
@@ -99,8 +206,12 @@ export class SignUp extends Block {
                 <div class=${cl.inputWrapper}>
                       {{{ InputLogin }}}
                       {{{ InputEmail }}}
-                
+                      {{{ InputEmail }}}
+                      {{{ InputName }}}
+                      {{{ InputSecondName }}}
+                      {{{ InputPhone }}}
                       {{{ InputPassword }}}
+                      {{{ InputPasswordRepeat }}}
                 </div>
                 <div class=${cl.btnWrapper}>
                     <a href='/signin'>

@@ -1,14 +1,19 @@
 //language=hbs
 import cl from './Dialog.module.scss'
-import Handlebars from 'handlebars'
 import { MenuIcon } from '../../assets/MenuIcon.ts'
 import { ArrowSendMessage } from '@/shared/icons/ArrowSendMessage.ts'
 import { AttachIcon } from '../../assets/AttachIcon.ts'
-import { MessageCloud } from './MessageCloud/MessageCloud.ts'
+import { Block } from '@/entities/Block.ts'
+import { MessageCloud } from '@/pages/ChatPage/ui/Dialog/MessageCloud/MessageCloud.ts'
 
-Handlebars.registerPartial('MessageCloud', MessageCloud)
-export const Dialog = `
-    <div class=${cl.section}>
+export class Dialog extends Block {
+  constructor(props) {
+    super({ ...props, MessageCloud: new MessageCloud({}) })
+  }
+
+  render() {
+    return `
+        <div class=${cl.section}>
         <div class=${cl.header}>
             <div class=${cl.wrapper}>
                 <img class=${cl.img} src='{{avatar}}' alt="avatar"/>
@@ -18,7 +23,7 @@ export const Dialog = `
         </div>
         <div class=${cl.body}>
  						{{#each (chat-data)}}
-                {{> MessageCloud }}
+                {{{ MessageCloud }}}
             {{/each}}
     
         </div>
@@ -31,4 +36,6 @@ export const Dialog = `
         </div>
 
     </div>
-`
+    `
+  }
+}

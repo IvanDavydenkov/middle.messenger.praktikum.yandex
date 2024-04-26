@@ -3,10 +3,10 @@ import * as Components from './shared/ui/'
 import * as Pages from './pages'
 
 const pages = {
-  // chat: [Pages.ChatPage],
+  chat: [Pages.ChatPage],
   signin: [Pages.SignInPage],
   signup: [Pages.SignUpPage],
-  // profile: [Pages.ProfilePage],
+  profile: [Pages.ProfilePage],
   '404': [Pages.NotFoundPage],
   '500': [Pages.ServerErrorPage],
 }
@@ -29,7 +29,7 @@ function navigate(page: string) {
   container.innerHTML = Handlebars.compile(source)(context)
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('signup'))
+document.addEventListener('DOMContentLoaded', () => navigate('chat'))
 
 document.addEventListener('click', (e) => {
   const page = e.target.getAttribute('page')

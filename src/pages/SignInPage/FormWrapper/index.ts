@@ -1,6 +1,7 @@
 import { Block } from '@/entities/Block.ts'
 import cl from './styles.module.scss'
-import { Button, ButtonLink, Input } from '@/shared/ui'
+import { Button, ButtonLink, InputElement } from '@/shared/ui'
+import { regulars } from '@/shared/ui/Input/validator.ts'
 
 export class SignIn extends Block {
   constructor(props) {
@@ -12,14 +13,14 @@ export class SignIn extends Block {
     const onChangePassword = this.onChangePassword.bind(this)
     const onLogin = this.onLogin.bind(this)
 
-    const InputLogin = new Input({
+    const InputLogin = new InputElement({
       label: 'login',
       name: 'login',
       type: 'text',
       onBlur: onChangeLogin,
     })
 
-    const InputPassword = new Input({
+    const InputPassword = new InputElement({
       label: 'password',
       name: 'password',
       type: 'password',
@@ -45,10 +46,10 @@ export class SignIn extends Block {
 
   onChangeLogin(e) {
     const inputValue = e.target.value
-    if (inputValue === 'error') {
+    if (!regulars.name.regular.test(inputValue)) {
       this.children.InputLogin.setProps({
         error: true,
-        errorText: 'some error',
+        errorText: regulars.name.errorText,
       })
       return
     } else {
@@ -60,10 +61,10 @@ export class SignIn extends Block {
 
   onChangePassword(e) {
     const inputValue = e.target.value
-    if (inputValue === 'error') {
+    if (!regulars.password.regular.test(inputValue)) {
       this.children.InputPassword.setProps({
         error: true,
-        errorText: 'some error',
+        errorText: regulars.password.errorText,
       })
       return
     } else {
@@ -75,6 +76,7 @@ export class SignIn extends Block {
 
   onLogin(event) {
     event.preventDefault()
+    console.log(this.props)
   }
 
   render() {
