@@ -1,18 +1,26 @@
-//@ts-nocheck
+interface EventCallback {
+  (...args: unknown[]): void
+}
+
+interface Listeners {
+  [event: string]: EventCallback[]
+}
 
 export class EventBus {
+  private listeners: Listeners
+
   constructor() {
     this.listeners = {}
   }
 
-  on(event, callback) {
+  on(event: string, callback: EventCallback) {
     if (!this.listeners[event]) {
       this.listeners[event] = []
     }
     this.listeners[event].push(callback)
   }
 
-  off(event, callback) {
+  off(event: string, callback: EventCallback) {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`)
     }
@@ -21,13 +29,10 @@ export class EventBus {
     )
   }
 
-  emit(event, ...args) {
+  emit(event: string, ...args: unknown[]) {
     if (!this.listeners[event]) {
       return
-      // throw new Error(`Нет события: ${event}`);
     }
-    this.listeners[event].forEach(function (listener) {
-      listener(...args)
-    })
+    this.listeners[event].forEach((listener) => listener(...args))
   }
 }

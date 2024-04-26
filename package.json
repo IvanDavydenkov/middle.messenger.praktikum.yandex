@@ -15,7 +15,8 @@
     "dev": "tsc & vite --port 3000 --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "npm run build & node server.cjs"
+    "start": "npm run build & node server.cjs",
+    "lint": "eslint ./src"
   },
   "devDependencies": {
     "@types/uuid": "^9.0.8",

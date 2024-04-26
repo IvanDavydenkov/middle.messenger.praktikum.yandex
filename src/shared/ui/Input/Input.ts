@@ -2,7 +2,7 @@ import { Block } from '@/entities/Block.ts'
 import cl from './input.module.scss'
 
 export class Input extends Block {
-  constructor(props) {
+  constructor(props: Record<string | symbol, unknown>) {
     super({
       ...props,
       events: {

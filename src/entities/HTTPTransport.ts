@@ -1,24 +1,24 @@
-const METHODS = {
-  GET: 'GET',
-  POST: 'POST',
-  PUT: 'PUT',
-  DELETE: 'DELETE',
-}
-
-interface IHTTP {
-  get: Function
-  post: Function
-  put: Function
-  delete: Function
-  request: Function
-}
-
-type Options = {
+interface Options {
   method: string
   headers?: [string, string]
   data?: [string, string][]
   timeout?: number
   retries?: number
+}
+
+export enum METHODS {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
+}
+
+interface IHTTP {
+  get: HTTPMethod
+  post: HTTPMethod
+  put: HTTPMethod
+  delete: HTTPMethod
+  request: HTTPMethod
 }
 
 type HTTPMethod = (url: string, options: Options) => Promise<unknown>

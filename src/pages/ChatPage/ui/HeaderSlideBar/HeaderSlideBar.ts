@@ -1,11 +1,9 @@
-//language=hbs
 import cl from './HeaderSlideBar.module.scss'
-// import {SearchIcon} from '../assets/SearchIcon.ts'
 import { ArrowIcon } from '../../assets/ArrowIcon.ts'
 import { Block } from '@/entities/Block.ts'
 
 export class HeaderSlideBar extends Block {
-  constructor(props) {
+  constructor(props: Record<string | symbol, unknown>) {
     super(props)
   }
 

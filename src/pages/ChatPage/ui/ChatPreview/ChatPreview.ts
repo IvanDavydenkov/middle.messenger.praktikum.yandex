@@ -3,12 +3,16 @@ import cl from './ChatPreview.module.scss'
 import { Block } from '@/entities/Block.ts'
 
 export class ChatPreview extends Block {
-  constructor(props) {
+  constructor(props: Record<string | symbol, unknown>) {
     super({ ...props })
   }
 
   render() {
-    return `<div class=${cl.chat}>
+    return `
+
+ 	<ul class=${cl.list}>
+      {{#each data}}
+       <div class=${cl.chat}>
         {{#if avatar}}
             <img class=${cl.img} src="{{avatar}}"/>
         {{/if}}
@@ -23,6 +27,10 @@ export class ChatPreview extends Block {
                 <span class=${cl.notification}>{{unread}}</span>
             {{/if}}
         </div>
-    </div>`
+      </div>
+       {{/each}}
+    </ul>
+
+`
   }
 }

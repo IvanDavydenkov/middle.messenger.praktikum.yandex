@@ -3,7 +3,7 @@ import { Block } from '@/entities/Block.ts'
 import { NavBar } from '@/shared/NavBar'
 
 export class NotFoundPage extends Block {
-  constructor(props) {
+  constructor(props: Record<string | symbol, unknown>) {
     super({
       ...props,
       NavBar: new NavBar({}),

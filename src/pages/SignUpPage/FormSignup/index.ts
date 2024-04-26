@@ -1,10 +1,10 @@
 import { Block } from '@/entities/Block.ts'
 import { Button, ButtonLink, InputElement } from '@/shared/ui'
 import cl from '@/pages/SignInPage/FormWrapper/styles.module.scss'
-import { regulars } from '@/shared/ui/Input/validator.ts'
+import { regulars } from '@/shared/lib/validator.ts'
 
 export class SignUp extends Block {
-  constructor(props) {
+  constructor(props: Record<string | symbol, unknown>) {
     super({ ...props })
   }
 
@@ -85,8 +85,9 @@ export class SignUp extends Block {
     }
   }
 
-  onChangeLogin(e) {
-    const inputValue = e.target.value
+  onChangeLogin(e: InputEvent) {
+    const inputTarget = e.target as HTMLInputElement
+    const inputValue = inputTarget.value
     if (!regulars.login.regular.test(inputValue)) {
       this.children.InputLogin.setProps({
         error: true,
@@ -100,8 +101,9 @@ export class SignUp extends Block {
     this.setProps({ login: inputValue })
   }
 
-  onChangeEmail(e) {
-    const inputValue = e.target.value
+  onChangeEmail(e: InputEvent) {
+    const inputTarget = e.target as HTMLInputElement
+    const inputValue = inputTarget.value
     if (!regulars.email.regular.test(inputValue)) {
       this.children.InputEmail.setProps({
         error: true,
@@ -115,8 +117,9 @@ export class SignUp extends Block {
     this.setProps({ email: inputValue })
   }
 
-  onChangePasswordRepeat(e) {
-    const inputValue = e.target.value
+  onChangePasswordRepeat(e: InputEvent) {
+    const inputTarget = e.target as HTMLInputElement
+    const inputValue = inputTarget.value
     if (inputValue !== this.props.password) {
       this.children.InputPasswordRepeat.setProps({
         error: true,
@@ -133,8 +136,9 @@ export class SignUp extends Block {
     this.setProps({ passwordRepeat: inputValue })
   }
 
-  onChangeName(e) {
-    const inputValue = e.target.value
+  onChangeName(e: InputEvent) {
+    const inputTarget = e.target as HTMLInputElement
+    const inputValue = inputTarget.value
     if (!regulars.name.regular.test(inputValue)) {
       this.children.InputName.setProps({
         error: true,
@@ -148,8 +152,9 @@ export class SignUp extends Block {
     this.setProps({ name: inputValue })
   }
 
-  onChangeSecondName(e) {
-    const inputValue = e.target.value
+  onChangeSecondName(e: InputEvent) {
+    const inputTarget = e.target as HTMLInputElement
+    const inputValue = inputTarget.value
     if (!regulars.name.regular.test(inputValue)) {
       this.children.InputSecondName.setProps({
         error: true,
@@ -163,8 +168,9 @@ export class SignUp extends Block {
     this.setProps({ secondName: inputValue })
   }
 
-  onChangePhone(e) {
-    const inputValue = e.target.value
+  onChangePhone(e: InputEvent) {
+    const inputTarget = e.target as HTMLInputElement
+    const inputValue = inputTarget.value
     if (!regulars.phone.regular.test(inputValue)) {
       this.children.InputPhone.setProps({
         error: true,
@@ -178,8 +184,9 @@ export class SignUp extends Block {
     this.setProps({ phone: inputValue })
   }
 
-  onChangePassword(e) {
-    const inputValue = e.target.value
+  onChangePassword(e: InputEvent) {
+    const inputTarget = e.target as HTMLInputElement
+    const inputValue = inputTarget.value
     if (!regulars.password.regular.test(inputValue)) {
       this.children.InputPassword.setProps({
         error: true,
@@ -193,7 +200,7 @@ export class SignUp extends Block {
     this.setProps({ password: inputValue })
   }
 
-  onLogin(event) {
+  onLogin(event: Event) {
     event.preventDefault()
     console.log(this.props)
   }

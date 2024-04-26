@@ -1,9 +1,9 @@
 import { Block } from '@/entities/Block.ts'
-import cl from './styles.module.scss'
+import cl from './index.module.scss'
 import { Input } from '@/shared/ui/Input/Input.ts'
 
 export class InputElement extends Block {
-  constructor(props) {
+  constructor(props: Record<string | symbol, unknown>) {
     super({
       ...props,
       Input: new Input({

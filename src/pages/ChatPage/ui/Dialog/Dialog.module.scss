@@ -18,6 +18,7 @@
         border-radius: 50%;
         width: 47px;
         height: 47px;
+        
       }
 
       .name {
@@ -70,4 +71,20 @@
       background: none;
     }
   }
+}
+
+.wrapper {
+  position: relative;
+  padding: 11px;
+  background-color: #f8f8f8;
+  max-width: 40%;
+  align-self: flex-start;
+}
+
+.text {
+  margin: 0;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
 }

@@ -10,7 +10,7 @@ export interface Options {
   method?: Methods
   headers?: { [key: string]: string }
   timeout?: number
-  data?: unknown
+  data?: any // Дата может быть чем-угодно
 }
 
 export const handleError = (error: string) => {

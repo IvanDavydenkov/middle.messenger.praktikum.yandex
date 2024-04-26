@@ -1,8 +1,8 @@
 import Handlebars from 'handlebars'
-import * as Components from './shared/ui/'
 import * as Pages from './pages'
 
-const pages = {
+const pages: { [key: string]: any } = {
+  // Не знаю что если не эни
   chat: [Pages.ChatPage],
   signin: [Pages.SignInPage],
   signup: [Pages.SignUpPage],
@@ -11,9 +11,9 @@ const pages = {
   '500': [Pages.ServerErrorPage],
 }
 
-Object.entries(Components).forEach(([name, component]) => {
-  Handlebars.registerPartial(name, component)
-})
+// Object.entries(Components).forEach(([name, component]) => {
+//   return Handlebars.registerPartial(name, component)
+// })
 
 function navigate(page: string) {
   const [source, context] = pages[page]
@@ -32,7 +32,8 @@ function navigate(page: string) {
 document.addEventListener('DOMContentLoaded', () => navigate('chat'))
 
 document.addEventListener('click', (e) => {
-  const page = e.target.getAttribute('page')
+  const target = e.target as HTMLLinkElement
+  const page = target.getAttribute('page')
   if (page) {
     navigate(page)
 

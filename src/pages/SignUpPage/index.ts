@@ -28,7 +28,7 @@ export const SignUpPage1 = `
     </section>`
 
 export class SignUpPage extends Block {
-  constructor(props) {
+  constructor(props: Record<string | symbol, unknown>) {
     super({
       ...props,
       NavBar: new NavBar({}),

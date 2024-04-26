@@ -1,10 +1,10 @@
 import { Block } from '@/entities/Block.ts'
 import cl from './styles.module.scss'
 import { Button, ButtonLink, InputElement } from '@/shared/ui'
-import { regulars } from '@/shared/ui/Input/validator.ts'
+import { regulars } from '@/shared/lib/validator.ts'
 
 export class SignIn extends Block {
-  constructor(props) {
+  constructor(props: Record<string | symbol, unknown>) {
     super({ ...props })
   }
 
@@ -44,8 +44,9 @@ export class SignIn extends Block {
     }
   }
 
-  onChangeLogin(e) {
-    const inputValue = e.target.value
+  onChangeLogin(e: InputEvent) {
+    const inputTarget = e.target as HTMLInputElement
+    const inputValue = inputTarget.value
     if (!regulars.name.regular.test(inputValue)) {
       this.children.InputLogin.setProps({
         error: true,
@@ -59,8 +60,9 @@ export class SignIn extends Block {
     this.setProps({ login: inputValue })
   }
 
-  onChangePassword(e) {
-    const inputValue = e.target.value
+  onChangePassword(e: InputEvent) {
+    const inputTarget = e.target as HTMLInputElement
+    const inputValue = inputTarget.value
     if (!regulars.password.regular.test(inputValue)) {
       this.children.InputPassword.setProps({
         error: true,
@@ -74,7 +76,7 @@ export class SignIn extends Block {
     this.setProps({ password: inputValue })
   }
 
-  onLogin(event) {
+  onLogin(event: Event) {
     event.preventDefault()
     console.log(this.props)
   }

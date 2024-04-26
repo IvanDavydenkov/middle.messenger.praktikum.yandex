@@ -4,7 +4,7 @@ import { NavBar } from '@/shared/NavBar'
 import { SignIn } from '@/pages/SignInPage/FormWrapper'
 
 export class SignInPage extends Block {
-  constructor(props) {
+  constructor(props: Record<string | symbol, unknown>) {
     super({
       ...props,
       NavBar: new NavBar({}),

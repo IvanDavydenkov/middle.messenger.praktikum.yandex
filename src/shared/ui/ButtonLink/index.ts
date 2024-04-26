@@ -2,7 +2,7 @@ import { Block } from '@/entities/Block.ts'
 import cl from './ButtonLink.module.scss'
 
 export class ButtonLink extends Block {
-  constructor(props) {
+  constructor(props: Record<string | symbol, unknown>) {
     super({
       ...props,
       events: {

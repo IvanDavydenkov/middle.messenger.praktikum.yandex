@@ -4,11 +4,12 @@ import { MenuIcon } from '../../assets/MenuIcon.ts'
 import { ArrowSendMessage } from '@/shared/icons/ArrowSendMessage.ts'
 import { AttachIcon } from '../../assets/AttachIcon.ts'
 import { Block } from '@/entities/Block.ts'
-import { MessageCloud } from '@/pages/ChatPage/ui/Dialog/MessageCloud/MessageCloud.ts'
 
 export class Dialog extends Block {
-  constructor(props) {
-    super({ ...props, MessageCloud: new MessageCloud({}) })
+  constructor(props: Record<string | symbol, unknown>) {
+    super({
+      ...props,
+    })
   }
 
   render() {
@@ -22,17 +23,19 @@ export class Dialog extends Block {
             <button class=${cl.btn}>${MenuIcon}</button>
         </div>
         <div class=${cl.body}>
- 						{{#each (chat-data)}}
-                {{{ MessageCloud }}}
-            {{/each}}
-    
+ 			   {{#each messages}}
+              <div class='{{className}}'>
+                  <div class=${cl.wrapper}>
+                    <p class=${cl.text}>{{message}}</p>
+                    <span class=${cl.time}>{{time}}</span>
+                  </div>
+              </div>
+ 			   {{/each}}
         </div>
         <div class=${cl.footer}>
-
 						<button class=${cl.btn}>${AttachIcon}</button>
 						<input class=${cl.input} placeholder="Сообщение" />
 						<button class=${cl.btn}>${ArrowSendMessage}</button>
-
         </div>
 
     </div>
