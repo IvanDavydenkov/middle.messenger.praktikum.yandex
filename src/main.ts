@@ -2,7 +2,6 @@ import Handlebars from 'handlebars'
 import * as Pages from './pages'
 
 const pages: { [key: string]: any } = {
-  // Не знаю что если не эни
   chat: [Pages.ChatPage],
   signin: [Pages.SignInPage],
   signup: [Pages.SignUpPage],
@@ -10,10 +9,6 @@ const pages: { [key: string]: any } = {
   '404': [Pages.NotFoundPage],
   '500': [Pages.ServerErrorPage],
 }
-
-// Object.entries(Components).forEach(([name, component]) => {
-//   return Handlebars.registerPartial(name, component)
-// })
 
 function navigate(page: string) {
   const [source, context] = pages[page]

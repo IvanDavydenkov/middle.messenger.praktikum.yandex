@@ -10,7 +10,7 @@ export interface Options {
   method?: Methods
   headers?: { [key: string]: string }
   timeout?: number
-  data?: any // Дата может быть чем-угодно
+  data?: unknown // Дата может быть чем-угодно
 }
 
 export const handleError = (error: string) => {
@@ -29,7 +29,10 @@ export class HTTPTransport {
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
-      const fullUrl = method === Methods.GET ? url + queryStringify(data) : url
+      const fullUrl =
+        method === Methods.GET
+          ? url + queryStringify(data as { [key: string | symbol]: string })
+          : url
 
       xhr.open(method, fullUrl)
 
