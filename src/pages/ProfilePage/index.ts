@@ -1,4 +1,3 @@
-//language=hbs
 import cl from './styles.module.scss'
 import Handlebars from 'handlebars'
 import { ArrowSendMessage } from '@/shared/icons/ArrowSendMessage.ts'
