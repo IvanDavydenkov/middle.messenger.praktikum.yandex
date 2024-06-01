@@ -7,7 +7,7 @@ interface BlockProps {
 }
 
 interface Children {
-  [key: string]: Block
+  [key: string]: Block | { [key: string]: Block }
 }
 
 export class Block {
@@ -24,7 +24,9 @@ export class Block {
   protected props: BlockProps & { [key: string]: unknown }
   private eventBus: () => EventBus
 
-  constructor(propsWithChildren: Record<string, unknown> = {}) {
+  constructor(
+    propsWithChildren: Record<string, string | { [key: string]: string }> = {}
+  ) {
     const eventBus = new EventBus()
     const { props, children } = this._getChildrenAndProps(propsWithChildren)
 
@@ -71,11 +73,15 @@ export class Block {
     console.log('CDM')
 
     Object.values(this.children).forEach((child) => {
-      child.dispatchComponentDidMount()
+      if (child instanceof Block) {
+        child.dispatchComponentDidMount()
+      }
     })
   }
 
-  componentDidMount(_oldProps?: Record<string, unknown>) {
+  componentDidMount(
+    _oldProps?: Record<string, string | { [key: string]: string }>
+  ) {
     console.log(_oldProps)
   }
 
@@ -84,8 +90,8 @@ export class Block {
   }
 
   _componentDidUpdate(
-    oldProps: Record<string, unknown>,
-    newProps: Record<string, unknown>
+    oldProps: Record<string, string | { [key: string]: string }>,
+    newProps: Record<string, string | { [key: string]: string }>
   ) {
     console.log(oldProps, newProps)
     const response = this.componentDidUpdate(oldProps, newProps)
@@ -96,16 +102,18 @@ export class Block {
   }
 
   componentDidUpdate(
-    _oldProps: Record<string, unknown>,
-    _newProps: Record<string, unknown>
+    _oldProps: Record<string, string | { [key: string]: string }>,
+    _newProps: Record<string, string | { [key: string]: string }>
   ) {
     console.log(_oldProps, _newProps)
     return true
   }
 
-  _getChildrenAndProps(propsAndChildren: Record<string, unknown>) {
+  _getChildrenAndProps(
+    propsAndChildren: Record<string, string | { [key: string]: string }>
+  ) {
     const children: Children = {}
-    const props: Record<string, unknown> = {}
+    const props: Record<string, string | { [key: string]: string }> = {}
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
@@ -118,7 +126,9 @@ export class Block {
     return { children, props }
   }
 
-  setProps = (nextProps: Record<string, unknown>) => {
+  setProps = (
+    nextProps: Record<string, string | { [key: string]: string }>
+  ) => {
     if (!nextProps) {
       return
     }
@@ -136,16 +146,18 @@ export class Block {
     const fragment: HTMLElement = this._createDocumentElement('template')
 
     fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs)
+
     const newElement = fragment.content.firstElementChild
 
     Object.values(this.children).forEach((child) => {
+      if (!child) return
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`)
 
-      stub?.replaceWith(child.getContent())
+      stub?.replaceWith(child?.getContent())
     })
 
     if (this._element) {
-      this._element.replaceWith(newElement)
+      this._element?.replaceWith(newElement)
     }
 
     this._element = newElement
