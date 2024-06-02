@@ -1,6 +1,4 @@
-interface EventCallback {
-  (...args: unknown[]): void
-}
+type EventCallback = (...args: unknown[]) => void
 
 interface Listeners {
   [event: string]: EventCallback[]

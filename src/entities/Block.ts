@@ -2,12 +2,20 @@ import { EventBus } from './EventBus'
 import { nanoid } from 'nanoid'
 import Handlebars from 'handlebars'
 
+type EventCallback = (...args: unknown[]) => void
+
 interface BlockProps {
   events?: { [eventName: string]: (event: Event) => void }
+
+  [key: string]: unknown
 }
 
 interface Children {
-  [key: string]: Block | { [key: string]: Block }
+  [key: string]: Block | Block[]
+}
+
+type PropsWithChildren = {
+  [key: string]: unknown
 }
 
 export class Block {
@@ -18,15 +26,13 @@ export class Block {
     FLOW_RENDER: 'flow:render',
   }
 
-  _meta = null
+  _meta: null = null
   _id: string
   protected children: Children
-  protected props: BlockProps & { [key: string]: unknown }
+  protected props: BlockProps
   private eventBus: () => EventBus
 
-  constructor(
-    propsWithChildren: Record<string, string | { [key: string]: string }> = {}
-  ) {
+  constructor(propsWithChildren: PropsWithChildren = {}) {
     const eventBus = new EventBus()
     const { props, children } = this._getChildrenAndProps(propsWithChildren)
 
@@ -55,10 +61,19 @@ export class Block {
   }
 
   _registerEvents(eventBus: EventBus) {
-    eventBus.on(Block.EVENTS.INIT, this._init.bind(this))
-    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this))
-    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this))
-    eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
+    eventBus.on(Block.EVENTS.INIT, this._init.bind(this) as EventCallback)
+    eventBus.on(
+      Block.EVENTS.FLOW_CDM,
+      this._componentDidMount.bind(this) as EventCallback
+    )
+    eventBus.on(
+      Block.EVENTS.FLOW_CDU,
+      this._componentDidUpdate.bind(this) as EventCallback
+    )
+    eventBus.on(
+      Block.EVENTS.FLOW_RENDER,
+      this._render.bind(this) as EventCallback
+    )
   }
 
   _init() {
@@ -70,30 +85,27 @@ export class Block {
 
   _componentDidMount() {
     this.componentDidMount()
-    console.log('CDM')
 
     Object.values(this.children).forEach((child) => {
       if (child instanceof Block) {
         child.dispatchComponentDidMount()
+      } else if (Array.isArray(child)) {
+        child.forEach((nestedChild) => {
+          if (nestedChild instanceof Block) {
+            nestedChild.dispatchComponentDidMount()
+          }
+        })
       }
     })
   }
 
-  componentDidMount(
-    _oldProps?: Record<string, string | { [key: string]: string }>
-  ) {
-    console.log(_oldProps)
-  }
+  componentDidMount() {}
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM)
   }
 
-  _componentDidUpdate(
-    oldProps: Record<string, string | { [key: string]: string }>,
-    newProps: Record<string, string | { [key: string]: string }>
-  ) {
-    console.log(oldProps, newProps)
+  _componentDidUpdate(oldProps: BlockProps, newProps: BlockProps) {
     const response = this.componentDidUpdate(oldProps, newProps)
     if (!response) {
       return
@@ -101,22 +113,20 @@ export class Block {
     this._render()
   }
 
-  componentDidUpdate(
-    _oldProps: Record<string, string | { [key: string]: string }>,
-    _newProps: Record<string, string | { [key: string]: string }>
-  ) {
-    console.log(_oldProps, _newProps)
+  componentDidUpdate(oldProps: BlockProps, newProps: BlockProps) {
+    console.log(oldProps, newProps)
     return true
   }
 
-  _getChildrenAndProps(
-    propsAndChildren: Record<string, string | { [key: string]: string }>
-  ) {
+  _getChildrenAndProps(propsAndChildren: PropsWithChildren) {
     const children: Children = {}
-    const props: Record<string, string | { [key: string]: string }> = {}
+    const props: BlockProps = {}
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      if (value instanceof Block) {
+      if (
+        value instanceof Block ||
+        (Array.isArray(value) && value.every((item) => item instanceof Block))
+      ) {
         children[key] = value
       } else {
         props[key] = value
@@ -126,41 +136,56 @@ export class Block {
     return { children, props }
   }
 
-  setProps = (
-    nextProps: Record<string, string | { [key: string]: string }>
-  ) => {
+  setProps = (nextProps: BlockProps) => {
     if (!nextProps) {
       return
     }
 
+    const oldProps = { ...this.props }
     Object.assign(this.props, nextProps)
+    this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, this.props)
   }
 
   _render() {
     const propsAndStubs = { ...this.props }
 
     Object.entries(this.children).forEach(([key, child]) => {
-      propsAndStubs[key] = `<div data-id="${child._id}"></div>`
+      if (child instanceof Block) {
+        propsAndStubs[key] = `<div data-id="${child._id}"></div>`
+      } else if (Array.isArray(child)) {
+        propsAndStubs[key] = child
+          .map((nestedChild) => `<div data-id="${nestedChild._id}"></div>`)
+          .join('')
+      }
     })
 
-    const fragment: HTMLElement = this._createDocumentElement('template')
+    const fragment = this._createDocumentElement(
+      'template'
+    ) as HTMLTemplateElement
 
     fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs)
 
     const newElement = fragment.content.firstElementChild
 
     Object.values(this.children).forEach((child) => {
-      if (!child) return
-      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`)
-
-      stub?.replaceWith(child?.getContent())
+      if (child instanceof Block) {
+        const stub = fragment.content.querySelector(`[data-id="${child._id}"]`)
+        stub?.replaceWith(child.getContent()!)
+      } else if (Array.isArray(child)) {
+        child.forEach((nestedChild) => {
+          const stub = fragment.content.querySelector(
+            `[data-id="${nestedChild._id}"]`
+          )
+          stub?.replaceWith(nestedChild.getContent()!)
+        })
+      }
     })
 
     if (this._element) {
-      this._element?.replaceWith(newElement)
+      this._element.replaceWith(newElement!)
     }
 
-    this._element = newElement
+    this._element = newElement as Element
 
     this._addEvents()
   }
@@ -173,15 +198,13 @@ export class Block {
     return this.element
   }
 
-  _makePropsProxy(
-    props: Record<string | symbol, unknown>
-  ): Record<string, unknown> {
+  _makePropsProxy(props: BlockProps): BlockProps {
     return new Proxy(props, {
-      get: (target, prop) => {
+      get: (target, prop: string) => {
         const value = target[prop]
         return typeof value === 'function' ? value.bind(target) : value
       },
-      set: (target, prop, value) => {
+      set: (target, prop: string, value) => {
         const oldTarget = { ...target }
         target[prop] = value
 
