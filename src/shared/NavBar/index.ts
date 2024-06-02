@@ -2,7 +2,7 @@ import cl from './NavBar.module.scss'
 import { Block } from '@/entities/Block.ts'
 
 export class NavBar extends Block {
-  constructor(props) {
+  constructor(props: { [key: string]: unknown }) {
     super({
       ...props,
     })
