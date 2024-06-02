@@ -7,15 +7,15 @@ type EventCallback = (...args: unknown[]) => void
 interface BlockProps {
   events?: { [eventName: string]: (event: Event) => void }
 
-  [key: string]: unknown
+  [key: string]: any
 }
 
 interface Children {
-  [key: string]: Block | Block[]
+  [key: string]: Block
 }
 
 type PropsWithChildren = {
-  [key: string]: unknown
+  [key: string]: any
 }
 
 export class Block {
@@ -89,12 +89,6 @@ export class Block {
     Object.values(this.children).forEach((child) => {
       if (child instanceof Block) {
         child.dispatchComponentDidMount()
-      } else if (Array.isArray(child)) {
-        child.forEach((nestedChild) => {
-          if (nestedChild instanceof Block) {
-            nestedChild.dispatchComponentDidMount()
-          }
-        })
       }
     })
   }
@@ -123,10 +117,7 @@ export class Block {
     const props: BlockProps = {}
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      if (
-        value instanceof Block ||
-        (Array.isArray(value) && value.every((item) => item instanceof Block))
-      ) {
+      if (value instanceof Block) {
         children[key] = value
       } else {
         props[key] = value
@@ -152,10 +143,6 @@ export class Block {
     Object.entries(this.children).forEach(([key, child]) => {
       if (child instanceof Block) {
         propsAndStubs[key] = `<div data-id="${child._id}"></div>`
-      } else if (Array.isArray(child)) {
-        propsAndStubs[key] = child
-          .map((nestedChild) => `<div data-id="${nestedChild._id}"></div>`)
-          .join('')
       }
     })
 
@@ -171,13 +158,6 @@ export class Block {
       if (child instanceof Block) {
         const stub = fragment.content.querySelector(`[data-id="${child._id}"]`)
         stub?.replaceWith(child.getContent()!)
-      } else if (Array.isArray(child)) {
-        child.forEach((nestedChild) => {
-          const stub = fragment.content.querySelector(
-            `[data-id="${nestedChild._id}"]`
-          )
-          stub?.replaceWith(nestedChild.getContent()!)
-        })
       }
     })
 
