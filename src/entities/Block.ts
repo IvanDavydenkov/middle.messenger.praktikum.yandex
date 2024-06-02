@@ -7,7 +7,7 @@ type EventCallback = (...args: unknown[]) => void
 interface BlockProps {
   events?: { [eventName: string]: (event: Event) => void }
 
-  [key: string]: any
+  [key: string]: unknown
 }
 
 interface Children {
@@ -15,7 +15,7 @@ interface Children {
 }
 
 type PropsWithChildren = {
-  [key: string]: any
+  [key: string]: unknown
 }
 
 export class Block {
