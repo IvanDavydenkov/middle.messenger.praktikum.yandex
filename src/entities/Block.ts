@@ -60,6 +60,14 @@ export class Block {
     })
   }
 
+  _removeEvents() {
+    const { events = {} } = this.props
+
+    Object.entries(events).forEach(([eventName, handler]) => {
+      this._element?.removeEventListener(eventName, handler)
+    })
+  }
+
   _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this) as EventCallback)
     eventBus.on(
@@ -162,6 +170,7 @@ export class Block {
     })
 
     if (this._element) {
+      this._removeEvents()
       this._element.replaceWith(newElement!)
     }
 

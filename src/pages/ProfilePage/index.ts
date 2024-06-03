@@ -5,6 +5,7 @@ import { Block } from '@/entities/Block.ts'
 import { regulars } from '@/shared/lib/validator.ts'
 import { NavBar } from '@/shared/NavBar'
 import { ProfileInputWrapper } from '@/pages/ProfilePage/ui/ProfileInputWrapper.ts'
+import { Button } from '@/shared/ui'
 
 Handlebars.registerPartial('ArrowSendMessage', ArrowSendMessage)
 
@@ -14,7 +15,6 @@ export class ProfilePage extends Block {
       ...props,
       NavBar: new NavBar({}),
     })
-    this.children = {}
   }
 
   init() {
@@ -72,7 +72,7 @@ export class ProfilePage extends Block {
       name: 'phone',
       onBlur: onChangePhone,
     })
-    const SaveButton = new ProfileInputWrapper({
+    const SaveButton = new Button({
       label: 'Сохранить',
       onClick: onSave,
     })

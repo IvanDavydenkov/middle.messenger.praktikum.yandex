@@ -3,6 +3,7 @@ import { Block } from '@/entities/Block.ts'
 
 export class ProfileInput extends Block {
   constructor(props: Record<string | symbol, unknown>) {
+    console.log(props)
     super({
       ...props,
       events: {

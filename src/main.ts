@@ -28,7 +28,7 @@ function navigate(page: string) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('chat'))
+document.addEventListener('DOMContentLoaded', () => navigate('profile'))
 
 document.addEventListener('click', (e: Event) => {
   const target = e.target as HTMLLinkElement
