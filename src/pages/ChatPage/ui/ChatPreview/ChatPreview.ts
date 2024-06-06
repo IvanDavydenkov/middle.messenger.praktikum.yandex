@@ -1,8 +1,18 @@
 //language=hbs
 import cl from './ChatPreview.module.scss'
+import { Block } from '@/entities/Block.ts'
 
-export const ChatPreview = `
-    <div class=${cl.chat}>
+export class ChatPreview extends Block {
+  constructor(props: Record<string | symbol, unknown>) {
+    super({ ...props })
+  }
+
+  render() {
+    return `
+
+ 	<ul class=${cl.list}>
+      {{#each data}}
+       <div class=${cl.chat}>
         {{#if avatar}}
             <img class=${cl.img} src="{{avatar}}"/>
         {{/if}}
@@ -17,5 +27,10 @@ export const ChatPreview = `
                 <span class=${cl.notification}>{{unread}}</span>
             {{/if}}
         </div>
-    </div>
+      </div>
+       {{/each}}
+    </ul>
+
 `
+  }
+}

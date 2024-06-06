@@ -1,9 +1,20 @@
-//language=hbs
 import cl from './ProfileInput.module.scss'
+import { Block } from '@/entities/Block.ts'
 
-export const ProfileInput = `
-    <label class=${cl.label}>
-        <span>{{label}}</span>
-        <Input class=${cl.input} value="{{value}}" type="{{type}}" name="{{name}}">
-    </label>
-`
+export class ProfileInput extends Block {
+  constructor(props: Record<string | symbol, unknown>) {
+    console.log(props)
+    super({
+      ...props,
+      events: {
+        blur: props.onBlur,
+      },
+    })
+  }
+
+  render() {
+    return `   
+    <Input class=${cl.input} value="{{value}}" type="{{type}}" name="{{name}}">
+    `
+  }
+}

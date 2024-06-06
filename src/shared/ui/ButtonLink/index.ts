@@ -1,19 +1,18 @@
 import { Block } from '@/entities/Block.ts'
-import cl from './input.module.scss'
+import cl from './ButtonLink.module.scss'
 
-export class Input extends Block {
+export class ButtonLink extends Block {
   constructor(props: Record<string | symbol, unknown>) {
     super({
       ...props,
       events: {
-        blur: props.onBlur,
+        click: props.onClick,
       },
     })
   }
 
   render() {
     return `
-              <Input class=${cl.input} value="{{value}}" type="{{type}}" name="{{name}}">
-		`
+    <button class=${cl.btn} name='{{name}}'><span>{{label}}</span></button>`
   }
 }

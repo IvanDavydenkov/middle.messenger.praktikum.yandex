@@ -93,3 +93,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "start": "npm run build & node server.cjs"
+
+### Спринт 2
+
+#### Добавлена реализация классов для компонентов и управления их событиями, также были добавлены классы для работы с api

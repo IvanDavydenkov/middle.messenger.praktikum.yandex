@@ -1,20 +1,11 @@
-import cl from './styles.module.scss'
-import Handlebars from 'handlebars'
-import { ArrowSendMessage } from '@/shared/icons/ArrowSendMessage.ts'
 import { Block } from '@/entities/Block.ts'
+import { Button, ButtonLink, InputElement } from '@/shared/ui'
+import cl from '@/pages/SignInPage/FormWrapper/styles.module.scss'
 import { regulars } from '@/shared/lib/validator.ts'
-import { NavBar } from '@/shared/NavBar'
-import { ProfileInputWrapper } from '@/pages/ProfilePage/ui/ProfileInputWrapper.ts'
-import { Button } from '@/shared/ui'
 
-Handlebars.registerPartial('ArrowSendMessage', ArrowSendMessage)
-
-export class ProfilePage extends Block {
+export class SignUp extends Block {
   constructor(props: Record<string | symbol, unknown>) {
-    super({
-      ...props,
-      NavBar: new NavBar({}),
-    })
+    super({ ...props })
   }
 
   init() {
@@ -25,63 +16,67 @@ export class ProfilePage extends Block {
     const onChangeName = this.onChangeName.bind(this)
     const onChangeSecondName = this.onChangeSecondName.bind(this)
     const onChangePhone = this.onChangePhone.bind(this)
-    const onSave = this.onSave.bind(this)
+    const onLogin = this.onLogin.bind(this)
 
-    const InputLogin = new ProfileInputWrapper({
+    const InputLogin = new InputElement({
       label: 'login',
       name: 'login',
       type: 'text',
       onBlur: onChangeLogin,
     })
 
-    const InputPassword = new ProfileInputWrapper({
+    const InputPassword = new InputElement({
       label: 'password',
       name: 'password',
       type: 'password',
       onBlur: onChangePassword,
     })
 
-    const InputEmail = new ProfileInputWrapper({
+    const InputEmail = new InputElement({
       type: 'email',
       label: 'Почта',
       name: 'email',
       onBlur: onChangeEmail,
     })
-    const InputPasswordRepeat = new ProfileInputWrapper({
+    const InputPasswordRepeat = new InputElement({
       type: 'password',
       label: 'Повторите пароль',
       name: 'repeatPassword',
       onBlur: onChangePasswordRepeat,
     })
 
-    const InputName = new ProfileInputWrapper({
+    const InputName = new InputElement({
       type: 'text',
       label: 'Имя',
       name: 'name',
       onBlur: onChangeName,
     })
-    const InputSecondName = new ProfileInputWrapper({
+    const InputSecondName = new InputElement({
       type: 'text',
       label: 'Фамилия',
       name: 'secondName',
       onBlur: onChangeSecondName,
     })
-    const InputPhone = new ProfileInputWrapper({
+    const InputPhone = new InputElement({
       type: 'number',
       label: 'Телефон',
       name: 'phone',
       onBlur: onChangePhone,
     })
-    const SaveButton = new Button({
-      label: 'Сохранить',
-      onClick: onSave,
+    const SignInButton = new Button({
+      label: 'Регистрация',
+      onClick: onLogin,
+    })
+    const SignUpButton = new ButtonLink({
+      label: 'Есть аккаунт?',
     })
 
     this.children = {
       ...this.children,
       InputLogin,
       InputPassword,
-      SaveButton,
+      SignInButton,
+      SignUpButton,
       InputEmail,
       InputPasswordRepeat,
       InputName,
@@ -109,7 +104,6 @@ export class ProfilePage extends Block {
   onChangeEmail(e: InputEvent) {
     const inputTarget = e.target as HTMLInputElement
     const inputValue = inputTarget.value
-
     if (!regulars.email.regular.test(inputValue)) {
       this.children.InputEmail.setProps({
         error: true,
@@ -206,24 +200,17 @@ export class ProfilePage extends Block {
     this.setProps({ password: inputValue })
   }
 
-  onSave(event: Event) {
+  onLogin(event: Event) {
     event.preventDefault()
     console.log(this.props)
   }
 
   render() {
-    return `    
-    <main class=${cl.section}>
-    {{{ NavBar }}}
-        <div class=${cl.sidebar}>
-        <a href="/chat">
-        {{>ArrowSendMessage}}
-        </a>
-        </div>
-        <div class=${cl.container}>
-         <form class=${cl.form}>
-            <img class=${cl.img} src="https://lapkins.ru/upload/iblock/d44/d44fb8e4580b59ba1b09440270cd6fac.jpg"/>
-            <div class=${cl.inputWrapper}>
+    return ` 
+        <section class=${cl.section}>
+            <h1 class=${cl.title}>{{title}}</h1>
+            <form class=${cl.form}>
+                <div class=${cl.inputWrapper}>
                       {{{ InputLogin }}}
                       {{{ InputEmail }}}
                       {{{ InputEmail }}}
@@ -232,11 +219,18 @@ export class ProfilePage extends Block {
                       {{{ InputPhone }}}
                       {{{ InputPassword }}}
                       {{{ InputPasswordRepeat }}}
-            </div>
-            {{{ SaveButton }}}
-        </form>
-        </div>       
-    </main>
-    `
+                </div>
+                <div class=${cl.btnWrapper}>
+                    <a href='/signin'>
+                    
+                      {{{ SignInButton }}}
+                    </a>
+                    <a href='/signup'>
+                       {{{ SignUpButton }}}
+                    </a>
+                </div>
+            </form>
+
+        </section>`
   }
 }

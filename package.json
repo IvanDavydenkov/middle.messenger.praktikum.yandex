@@ -15,9 +15,11 @@
     "dev": "tsc & vite --port 3000 --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "npm run build & node server.cjs"
+    "start": "npm run build & node server.cjs",
+    "lint": "eslint ./src"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "eslint": "^8.57.0",
@@ -25,13 +27,17 @@
     "handlebars": "^4.7.8",
     "prettier": "^3.2.5",
     "sass": "^1.71.1",
+    "stylelint": "^16.4.0",
     "typescript": "^5.2.2",
     "vite": "^5.1.4",
     "vite-tsconfig-paths": "^4.3.1"
   },
   "dependencies": {
     "@types/node": "^20.11.25",
-    "express": "^4.18.3"
+    "clsx": "^2.1.0",
+    "express": "^4.18.3",
+    "nanoid": "^5.0.7",
+    "uuid": "^9.0.1"
   },
   "engines": {
     "node": ">=21.0.0"
