@@ -2,6 +2,7 @@ import { Block } from '@/entities/Block.ts'
 import cl from './styles.module.scss'
 import { Button, ButtonLink, InputElement } from '@/shared/ui'
 import { regulars } from '@/shared/lib/validator.ts'
+import { AuthApi } from '@/feature/auth.api.ts'
 
 export class SignIn extends Block {
   constructor(props: Record<string | symbol, unknown>) {
@@ -78,7 +79,10 @@ export class SignIn extends Block {
 
   onLogin(event: Event) {
     event.preventDefault()
-    console.log(this.props)
+    AuthApi.login({
+      login: this.props.login as string,
+      password: this.props.password as string,
+    })
   }
 
   render() {

@@ -18,6 +18,7 @@ export const handleError = (error: string) => {
 }
 
 export const queryStringify = (data: { [key: string]: string }) => {
+  if(!data)return
   return Object.keys(data as { [key: string]: string })
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
     .join('&')
@@ -31,7 +32,7 @@ export class HTTPTransport {
       const xhr = new XMLHttpRequest()
       const fullUrl =
         method === Methods.GET
-          ? url + queryStringify(data as { [key: string | symbol]: string })
+          ? data ? url + queryStringify(data as { [key: string | symbol]: string }): url
           : url
 
       xhr.open(method, fullUrl)
@@ -48,7 +49,7 @@ export class HTTPTransport {
       xhr.onabort = reject
       xhr.onerror = reject
       xhr.ontimeout = reject
-
+      xhr.withCredentials = true
       if (headers) {
         Object.keys(headers).forEach((item) => {
           xhr.setRequestHeader(item, headers[item])

@@ -5,6 +5,11 @@ import { Block } from '@/entities/Block.ts'
 export class ChatPreview extends Block {
   constructor(props: Record<string | symbol, unknown>) {
     super({ ...props })
+    // console.log(props)
+  }
+
+  init() {
+    console.log(this.props)
   }
 
   render() {
@@ -12,7 +17,7 @@ export class ChatPreview extends Block {
 
  	<ul class=${cl.list}>
       {{#each data}}
-       <div class=${cl.chat}>
+       <div class=${cl.chat} id="{{id}}">
         {{#if avatar}}
             <img class=${cl.img} src="{{avatar}}"/>
         {{/if}}

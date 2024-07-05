@@ -13,11 +13,11 @@ export class NavBar extends Block {
               <nav class=${cl.nav}>
                   <ul>
                       <li><a href="/" page="chat">Chat</a></li>
-                      <li><a href="/" page="signin">signin</a></li>
-                      <li><a href="/" page="signup">signup</a></li>
-                      <li><a href="/" page="profile">profile</a></li>
-                      <li><a href="/" page="404">404</a></li>
-                      <li><a href="/" page="500">500</a></li>
+                      <li><a href="/signin" page="signin">signin</a></li>
+                      <li><a href="/signup" page="signup">signup</a></li>
+                      <li><a href="/profile" page="profile">profile</a></li>
+                      <li><a href="/404" page="404">404</a></li>
+                      <li><a href="/500" page="500">500</a></li>
                   </ul>
               </nav>
     `

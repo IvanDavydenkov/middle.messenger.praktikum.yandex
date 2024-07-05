@@ -49,21 +49,26 @@ export class HTTPTransport implements IHTTP {
 
   request: HTTPMethod = (url, options) => {
     const { method, headers, data, timeout = 5000 } = options
-
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
       xhr.open(method, url)
-      if (headers) xhr.setRequestHeader(...headers)
+      xhr.withCredentials = true
 
+      if (headers) {
+        Object.entries(headers).forEach(([key, value]) => {
+          xhr.setRequestHeader(key, value as string)
+        })
+      }
       xhr.onload = () => {
         resolve(xhr)
       }
-
-      xhr.onabort = reject
-      xhr.onerror = reject
-      xhr.ontimeout = reject
+      xhr.onabort = () => reject(new Error('Request was aborted'))
+      xhr.onerror = () =>
+        reject(new Error('An error occurred during the request'))
+      xhr.ontimeout = () => reject(new Error('The request timed out'))
 
       if (method === METHODS.GET) {
+        console.log(url)
         xhr.send()
       } else {
         xhr.send(JSON.stringify(data))

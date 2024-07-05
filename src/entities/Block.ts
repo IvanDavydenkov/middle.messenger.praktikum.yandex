@@ -4,7 +4,7 @@ import Handlebars from 'handlebars'
 
 type EventCallback = (...args: unknown[]) => void
 
-interface BlockProps {
+export interface BlockProps {
   events?: { [eventName: string]: (event: Event) => void }
 
   [key: string]: unknown
@@ -116,7 +116,6 @@ export class Block {
   }
 
   componentDidUpdate(oldProps: BlockProps, newProps: BlockProps) {
-    console.log(oldProps, newProps)
     return true
   }
 
@@ -208,5 +207,19 @@ export class Block {
 
   _createDocumentElement(tagName: string): HTMLElement {
     return document.createElement(tagName)
+  }
+
+  show() {
+    const element = this.getContent() as HTMLElement
+    if (element) {
+      element.style.display = 'block'
+    }
+  }
+
+  hide() {
+    const element = this.getContent() as HTMLElement
+    if (element) {
+      element.style.display = 'none'
+    }
   }
 }
